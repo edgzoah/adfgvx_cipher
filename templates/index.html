@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <title>ADFGVX encrypter & decrypter</title>
+    <script>
+        $(document).ready(function(){
+            $(".encode").click(function(){
+                $(".encode-div").show();
+                $(".decode-div").hide();
+                $('.title').text("Encode");
+                $('.title').css('color', 'blue');
+            });
+            $(".decode").click(function(){
+                $(".encode-div").hide();
+                $(".decode-div").show();
+                $('.title').text("Decode");
+                $('.title').css('color', 'orange');
+            });
+            $(".encode-button").click(function(){
+                var text = $("#text").val();
+                var key = $("#key").val();
+                var column_key = $("#column_key").val();
+                $.ajax({
+                    url: "encode",
+                    type: "POST",
+                    data: {
+                        text: text,
+                        key: key,
+                        column_key: column_key
+                    },
+                    success: function(data){
+                        alert(data);
+                    }
+                });
+            });
+            $(".decode-button").click(function(){
+                var text = $("#text1").val();
+                var key = $("#key1").val();
+                var column_key = $("#column_key1").val();
+                $.ajax({
+                    url: "decode",
+                    type: "POST",
+                    data: {
+                        text: text,
+                        key: key,
+                        column_key: column_key
+                    },
+                    success: function(data){
+                        alert(data);
+                    }
+                });
+            });
+    });
+    </script>
+</head>
+<body>
+    <h2 class="title" style="color:blue">Encode</h2>
+    <button class="encode">encode</button>
+    <button class="decode">decode</button>
+    <div class="encode-div">
+        <input type="text" name="text" id="text" placeholder="text">
+        <input type="text" name="key" id="key" placeholder="key">
+        <input type="text" name="column_key" id="column_key" placeholder="column key">
+        <button class="encode-button">encode</button>
+    </div>
+    <div class="decode-div" style="display:none">
+        <input type="text" name="text" id="text1" placeholder="text">
+        <input type="text" name="key" id="key1" placeholder="key">
+        <input type="text" name="column_key" id="column_key1" placeholder="column key">
+        <button class="decode-button">decode</button>
+        <p>niestety decode troche nie dziala  (czasami dziala (generalnie ruletka)) :(</p>
+
+    </body>
+</html>
